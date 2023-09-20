@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Listado de clientes</span>
+            <button class="btn btn-dark btn-lg" style="float:right" routerLink="/add-client">Agregar</button>
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let client of this.clients">
+                        <th scope="row">{{client.firstName}}</th>
+                        <td>{{client.lastName}}</td>
+                        <td>{{client.address}}</td>
+                        <td>{{client.mobile}}</td>
+                        <td>
+                            <i class="fas fa-edit fa-lg text-info mr-2" ></i>
+                            <i class="fas fa-trash-alt fa-lg text-danger"></i>
+
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

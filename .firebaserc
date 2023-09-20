@@ -1,0 +1,21 @@
+{
+  "targets": {
+    "login-firebase-angular-a1fa9": {
+      "hosting": {
+        "angular-boilerplate": [
+          "login-firebase-angular-a1fa9"
+        ]
+      }
+    },
+    "gestor-eaba9": {
+      "hosting": {
+        "angular-boilerplate": [
+          "gestor-eaba9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gestor-eaba9"
+  }
+}
