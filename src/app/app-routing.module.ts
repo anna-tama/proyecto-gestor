@@ -50,8 +50,9 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   // { path: '', redirectTo: 'client-list', pathMatch: 'full' },
-  { path: 'add-client', component: ClientComponent },
   { path: 'client-list', component: ClientListComponent },
+  { path: 'add-client', component: ClientComponent },
+  { path: 'edit-client/:id', component: ClientComponent },
   // { path: '**', redirectTo: 'client-list', pathMatch: 'full' },
 
 ];

@@ -23,7 +23,7 @@ export class ClientListComponent implements OnInit{
   }
 
   async onClickDelete(client: Client){
-    const response = await this.clientService.deletePlace(client);
+    const response = await this.clientService.deleteClient(client);
     console.log('borrado',response)
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, deleteDoc, setDoc } from '@angular/fire/firestore';
 import { Client } from '../interfaces/client';
 import { Observable } from 'rxjs';
 
@@ -20,9 +20,18 @@ export class ClientService {
     return collectionData(clientRef, {idField: 'id'}) as Observable<Client[]>;
   }
 
-  deletePlace(client: Client){
+  deleteClient(client: Client){
     const clientDocRef = doc(this.firestore, `clients/${client.id}`)
     return deleteDoc(clientDocRef);
+  }
+
+  getClient(id: string){
+    return doc(this.firestore, `clients/${id}`);
+  }
+
+  updateClient(id:string, client: Client){
+    const clientDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(clientDocRef,client);
   }
 
 
