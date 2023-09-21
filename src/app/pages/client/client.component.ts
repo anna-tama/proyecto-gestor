@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
-import { Client } from '@app/interfaces/client';
+import { Client, Loan } from '@app/interfaces/client';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -113,6 +113,11 @@ export class ClientComponent implements OnInit {
       this.toastr.info('El empleado fue modificado con éxito', 'Empleado modificado', { positionClass: 'toast-bottom-right' })
     })
     this.router.navigate(['/client-list'])
+  }
+
+
+  addLoan(id?:string, loan?: Loan){
+    this.clientService.addLoan(this.id!);
   }
 
 }

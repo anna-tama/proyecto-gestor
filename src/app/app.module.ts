@@ -14,12 +14,14 @@ import { ClientModule } from './pages/client/client.module';
 import { ClientListComponent } from './pages/client-list/client-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DebtComponent } from './pages/debt/debt/debt.component';
+import { DebtListComponent } from './pages/debt/debt-list/debt-list.component';
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, ClientListComponent ],
+  declarations: [AppComponent, ClientListComponent, DebtComponent, DebtListComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
