@@ -12,6 +12,9 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientModule } from './pages/client/client.module';
 import { ClientListComponent } from './pages/client-list/client-list.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -23,6 +26,8 @@ import { ClientListComponent } from './pages/client-list/client-list.component';
     NavbarComponent,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
       const auth = getAuth();
