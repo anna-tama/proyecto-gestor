@@ -7,7 +7,7 @@
                         <div *ngIf="loading" class="spinner-border float-right" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                    </h3>
+                    </h3>                    
                     <span *ngIf="submitted && this.profileForm!.invalid" class="badge badge-danger">Todos los campos son
                         obligatorios</span>
                     <form [formGroup]="profileForm!" (ngSubmit)="onSubmit()" class="mt-4">
@@ -50,8 +50,6 @@
                         </div>
                     </form>
 
-
-                    <button type="text" class="btn btn-secondary btn-lg mt-3" (click)="addLoan()">Préstamo</button>
                 </div>
             </div>
         </div>

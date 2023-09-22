@@ -4,6 +4,8 @@ import { authGuard } from './shared/guards/auth.guard';
 import { onlyLoggedInGuard } from './shared/guards/only-logged-in.guard';
 import { ClientComponent } from './pages/client/client.component';
 import { ClientListComponent } from './pages/client-list/client-list.component';
+import { DebtComponent } from './pages/debt/debt/debt.component';
+import { DebtListComponent } from './pages/debt/debt-list/debt-list.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,9 @@ const routes: Routes = [
   { path: 'client-list', component: ClientListComponent },
   { path: 'add-client', component: ClientComponent },
   { path: 'edit-client/:id', component: ClientComponent },
+  { path: 'add-debt', component: DebtComponent },
+  { path: 'edit-debt/:id', component: DebtComponent },
+  { path: 'debt-list', component: DebtListComponent },
   // { path: '**', redirectTo: 'client-list', pathMatch: 'full' },
 
 ];

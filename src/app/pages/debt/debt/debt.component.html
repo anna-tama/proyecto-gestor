@@ -1,1 +1,99 @@
-<p>debt works!</p>
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{title}}
+                        <div *ngIf="loading" class="spinner-border float-right" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h3>
+                    <span *ngIf="submitted && this.debtForm!.invalid" class="badge badge-danger">Todos los campos son
+                        obligatorios</span>
+                    <form [formGroup]="debtForm!" (ngSubmit)="onSubmit()" class="mt-4">
+
+                        <div class="form-group row mt-2">
+                            <label for="clientId" class="col-sm-2 col-form-label">Seleccionar Cliente: </label>
+                            <div class="col-sm-10">
+                                <select class="form-select" aria-label="Default select example" id="clientId"
+                                    aria-describedby="clientId" formControlName="clientId">
+                                    <option *ngFor="let clientArray of getClientsArray" value="{{clientArray.id}}">{{clientArray.firstName + ' ' + clientArray.lastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="initialDate" class="col-sm-2 col-form-label">Fecha: </label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="initialDate" aria-describedby="initialDate"
+                                    formControlName="initialDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="totalAmount" class="col-sm-2 col-form-label">Monto: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="totalAmount" aria-describedby="totalAmount"
+                                    placeholder="Monto" formControlName="totalAmount" >
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row mt-2">
+                            <label for="profit" class="col-sm-2 col-form-label">Ganancia: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="profit" aria-describedby="profit"
+                                    placeholder="Ganancia" formControlName="profit">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="cuoteType" class="col-sm-2 col-form-label">Tipo de cuota: </label>
+                            <div class="col-sm-10">
+                                <select class="form-select" aria-label="Default select example" id="cuoteType"
+                                    aria-describedby="cuoteType" formControlName="cuoteType">
+                                    <option selected>Seleccioná un tipo de cuota</option>
+                                    <option value="diario">Diario</option>
+                                    <option value="semanal">Semanal</option>
+                                    <option value="mensual">Mensual</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="cuoteQuantity" class="col-sm-2 col-form-label">Cantidad de cuotas: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cuoteQuantity" aria-describedby="cuoteQuantity"
+                                    placeholder="Cantidad de cuotas" formControlName="cuoteQuantity">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="cuotePaid" class="col-sm-2 col-form-label">Cantidad de cuotas pagas: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cuotePaid" aria-describedby="cuotePaid"
+                                    placeholder="Cantidad de cuotas pagas" formControlName="cuotePaid">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="cuoteValue" class="col-sm-2 col-form-label">Valor de la cuota: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cuoteValue" aria-describedby="cuoteValue"
+                                    placeholder="Valor de la cuota" formControlName="cuoteValue">
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3 mr-3">Registrar</button>
+                            <button type="text" class="btn btn-secondary btn-lg mt-3 "
+                                routerLink="/debt-list">Volver</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,6 +38,30 @@ export class ClientService {
     const d = new Date();
     let day = d.getDate();
 
+    let nuevo: Loan = {
+      initialDate: '1',
+      totalAmount: '1',
+      profit: '1',
+      cuoteType: '1',
+      cuoteQuantity: '1',
+      cuotePaid: '1',
+      cuoteValue: '1'
+    }
+
+    let data = {
+      loan: nuevo
+    };
+    
+    const clientDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(clientDocRef, data, { merge: true });
+  }
+
+
+
+  updateLoan(id?: string, loana?: Loan) {
+    const d = new Date();
+    let day = d.getDate();
+
     let loanita: Loan []= [{
       initialDate: '2',
       totalAmount: '2',
