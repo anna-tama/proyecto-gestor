@@ -1,1 +1,67 @@
-<p>debt-list works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Listado de Préstamos</span>
+            <button class="btn btn-dark btn-lg" style="float:right" routerLink="/add-client">Agregar</button>
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Fecha origen</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">Ganancia</th>
+                        <th scope="col">Cant. Cuotas</th>
+                        <th scope="col">Valor cuota</th>
+                        <th scope="col">Cuotas pagas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let client of this.clients">
+                        <th scope="row">{{client.firstName}}</th>
+                        <td>{{client.lastName}}</td>
+                        <td>{{client.address}}</td>
+                        <div class="d-flex flex-row bd-highlight mb-3">
+                            <div >
+                                <div class="d-flex flex-column bd-highlight mb-3" *ngFor="let subItem of client.loan">
+                                    <td>{{subItem.initialDate}}</td>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex flex-column bd-highlight mb-3" *ngFor="let subItem of client.loan">
+                                    <td>$ {{subItem.profit}}</td>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex flex-column bd-highlight mb-3" *ngFor="let subItem of client.loan">
+                                    <td>{{subItem.cuoteQuantity}}</td>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex flex-column bd-highlight mb-3" *ngFor="let subItem of client.loan">
+                                    <td>$ {{subItem.cuoteValue}}</td>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex flex-column bd-highlight mb-3" *ngFor="let subItem of client.loan">
+                                    <td>{{subItem.cuotePaid}}</td>
+                                </div>
+                            </div>
+                        </div>
+                        
+     
+
+        <td>
+            <i class="fas fa-edit fa-lg text-info mr-2" [routerLink]="['/edit-client/',client.id]"></i>
+            <i (click)="onClickDelete(client)" class="fas fa-trash-alt fa-lg text-danger"></i>
+
+        </td>
+        </tr>
+        <tr></tr>
+
+        </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
