@@ -56,8 +56,6 @@ export class ClientComponent implements OnInit {
     } else {
       this.updateClient(this.id!)
     }
-
-
   }
 
   async addClient() {
@@ -99,18 +97,16 @@ export class ClientComponent implements OnInit {
   }
 
   updateClient(id: string) {
-    const client: Client = {
-      firstName: this.profileForm?.value.firstName,
-      lastName: this.profileForm?.value.lastName,
-      mobile: this.profileForm?.value.mobile,
-      address: this.profileForm?.value.address,
-    }
-
     this.loading = true;
 
-    this.clientService.updateClient(id, client).then(() => {
+    this.client!.firstName! = this.profileForm?.value.firstName
+    this.client!.lastName! = this.profileForm?.value.lastName
+    this.client!.mobile! = this.profileForm?.value.mobile
+    this.client!.address! = this.profileForm?.value.address  
+
+    this.clientService.updateClient(id, this.client!).then(() => {
       this.loading = false;
-      this.toastr.info('El empleado fue modificado con éxito', 'Empleado modificado', { positionClass: 'toast-bottom-right' })
+      this.toastr.info('El cliente fue modificado con éxito', 'Cliente modificado', { positionClass: 'toast-bottom-right' })
     })
     this.router.navigate(['/client-list'])
   }
