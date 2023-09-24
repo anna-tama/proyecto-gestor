@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, deleteDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, setDoc, } from '@angular/fire/firestore';
 import { Client, Loan } from '../interfaces/client';
-import { Observable } from 'rxjs';
+
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,12 @@ export class DebtService {
     return setDoc(loanDocRef, client);
   }
 
-  deleteDebt(id: string, idLoan: string) {
+  async deleteDebt(id: string, idLoan: string) {
+    console.log('id',id)
     const clientDocRef = doc(this.firestore, `clients/${id}`)
-    return deleteDoc(clientDocRef);
+    await updateDoc(clientDocRef, {
+      loan: deleteField()
+  });
   }
 
 }
