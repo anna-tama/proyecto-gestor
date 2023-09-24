@@ -18,10 +18,9 @@ export class DebtComponent implements OnInit {
   id: string | null | undefined;
   clients: Client[] = [];
   client: Client | undefined;
+  clientSelected: Client | undefined;
   title: string = 'Agregar Préstamo';
   getClientsArray: Client[] = [];
-
-
 
   constructor(
     private debtService: DebtService,
@@ -40,7 +39,6 @@ export class DebtComponent implements OnInit {
   }
 
   initdebtForm() {
-
     this.debtForm = this.fb!.group({
       clientId: ['', Validators.required],
       initialDate: ['', Validators.required],
@@ -62,11 +60,11 @@ export class DebtComponent implements OnInit {
     if (this.id === null) {
       this.addLoan()
     } else {
-      this.updateLoan(this.id!)
+      //  this.updateLoan(this.id!)
     }
   }
 
-  getClients(){
+  getClients() {
     this.clientService.getClients().subscribe(clientsFirebase => {
       this.getClientsArray = clientsFirebase
       console.log(clientsFirebase)
@@ -142,24 +140,68 @@ export class DebtComponent implements OnInit {
 
 
   addLoan() {
-    const loanClient: Client = {
-      loan: [
-        {
-          initialDate: this.debtForm?.value.initialDate,
-          totalAmount: this.debtForm?.value.totalAmount,
-          profit: this.debtForm?.value.profit,
-          cuoteType: this.debtForm?.value.cuoteType,
-          cuoteQuantity: this.debtForm?.value.cuoteQuantity,
-          cuotePaid: this.debtForm?.value.cuotePaid,
-          cuoteValue: this.debtForm?.value.cuoteValue,
-        }
-      ]
+    this.clientSelected = this.getClientsArray.find(client => client.id == this.debtForm?.value.clientId)
+
+    if (this.clientSelected?.loan?.length) {
+      this.updateLoan()
+    } else {
+      const loanClient: Client = {
+        loan: [
+          {
+            id: '1',
+            initialDate: this.debtForm?.value.initialDate,
+            totalAmount: this.debtForm?.value.totalAmount,
+            profit: this.debtForm?.value.profit,
+            cuoteType: this.debtForm?.value.cuoteType,
+            cuoteQuantity: this.debtForm?.value.cuoteQuantity,
+            cuotePaid: this.debtForm?.value.cuotePaid,
+            cuoteValue: this.debtForm?.value.cuoteValue,
+          }
+        ]
+      }
+      this.debtService.addLoan(this.debtForm?.value.clientId, loanClient).then(() => {
+        this.loading = false;
+        this.toastr.success('El préstamo fue registrado con éxito', 'Préstamo registrado', { positionClass: 'toast-bottom-right' });
+        this.submitted = false;
+        this.debtForm?.reset();
+      }).catch(error => {
+        this.loading = false;
+        this.toastr.error('Ha ocurrido un error', 'Préstamo sin registrar', { positionClass: 'toast-bottom-right' });
+        console.log(error)
+      });
     }
-    this.debtService.addLoan(this.debtForm?.value.clientId,loanClient);
+
+
   }
 
-  updateLoan(id: string) {
-    console.log('updateLoan', id)
+
+  updateLoan() {
+    var lengthLoan = this.clientSelected?.loan?.length
+
+    const newLoan: Loan =
+    {
+      id: (++lengthLoan!).toString(),
+      initialDate: this.debtForm?.value.initialDate,
+      totalAmount: this.debtForm?.value.totalAmount,
+      profit: this.debtForm?.value.profit,
+      cuoteType: this.debtForm?.value.cuoteType,
+      cuoteQuantity: this.debtForm?.value.cuoteQuantity,
+      cuotePaid: this.debtForm?.value.cuotePaid,
+      cuoteValue: this.debtForm?.value.cuoteValue,
+    }
+
+
+    this.loading = true;
+
+    var oldLoan = this.clientSelected?.loan
+
+    this.clientService.updateLoan(this.debtForm?.value.clientId, newLoan, oldLoan)
+    .then(() => {
+      this.loading = false;
+      this.toastr.info('El empleado fue modificado con éxito', 'Empleado modificado', { positionClass: 'toast-bottom-right' })
+      this.router.navigate(['/debt-list'])
+    })
+    
   }
 
 }

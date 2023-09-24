@@ -58,50 +58,15 @@ export class ClientService {
 
 
 
-  updateLoan(id?: string, loana?: Loan) {
-    const d = new Date();
-    let day = d.getDate();
-
-    let loanita: Loan []= [{
-      initialDate: '2',
-      totalAmount: '2',
-      profit: '2',
-      cuoteType: '2',
-      cuoteQuantity: '2',
-      cuotePaid: '2',
-      cuoteValue: '2'
-    },
-    {
-      initialDate: '2',
-      totalAmount: '2',
-      profit: '2',
-      cuoteType: '2',
-      cuoteQuantity: '2',
-      cuotePaid: '2',
-      cuoteValue: '2'
-    }]
-
-    let nuevo: Loan = {
-      initialDate: '1',
-      totalAmount: '1',
-      profit: '1',
-      cuoteType: '1',
-      cuoteQuantity: '1',
-      cuotePaid: '1',
-      cuoteValue: '1'
-    }
-
-    loanita.push(nuevo)
+  updateLoan(id?: string, newLoan?: Loan, oldLoan?: Loan[]) {
+    oldLoan!.push(newLoan!)
 
     let data = {
-      loan: loanita
+      loan: oldLoan
     };
-
 
     const clientDocRef = doc(this.firestore, `clients/${id}`)
     return setDoc(clientDocRef, data, { merge: true });
-
-
   }
 
 
