@@ -115,9 +115,4 @@ export class ClientComponent implements OnInit {
     this.router.navigate(['/client-list'])
   }
 
-
-  addLoan(id?:string, loan?: Loan){
-    this.clientService.addLoan(this.id!);
-  }
-
 }

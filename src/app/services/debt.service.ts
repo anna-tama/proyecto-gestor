@@ -15,6 +15,18 @@ export class DebtService {
     return setDoc(clientDocRef, newloan, { merge: true });
   }
 
+  addLoanToExistingArray(id?: string, newLoan?: Loan[]) {
+    let data = {
+      loan: newLoan
+    };
 
+    const clientDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(clientDocRef, data, { merge: true });
+  }
+
+  // updateClient(id: string, client: Client) {
+  //   const clientDocRef = doc(this.firestore, `clients/${id}`)
+  //   return setDoc(clientDocRef, client);
+  // }
 
 }

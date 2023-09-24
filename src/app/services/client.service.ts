@@ -34,40 +34,4 @@ export class ClientService {
     return setDoc(clientDocRef, client);
   }
 
-  addLoan(id?: string, loana?: Loan) {
-    const d = new Date();
-    let day = d.getDate();
-
-    let nuevo: Loan = {
-      initialDate: '1',
-      totalAmount: '1',
-      profit: '1',
-      cuoteType: '1',
-      cuoteQuantity: '1',
-      cuotePaid: '1',
-      cuoteValue: '1'
-    }
-
-    let data = {
-      loan: nuevo
-    };
-    
-    const clientDocRef = doc(this.firestore, `clients/${id}`)
-    return setDoc(clientDocRef, data, { merge: true });
-  }
-
-
-
-  updateLoan(id?: string, newLoan?: Loan, oldLoan?: Loan[]) {
-    oldLoan!.push(newLoan!)
-
-    let data = {
-      loan: oldLoan
-    };
-
-    const clientDocRef = doc(this.firestore, `clients/${id}`)
-    return setDoc(clientDocRef, data, { merge: true });
-  }
-
-
 }
