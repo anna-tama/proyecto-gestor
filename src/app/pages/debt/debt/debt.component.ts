@@ -16,6 +16,7 @@ export class DebtComponent implements OnInit {
   submitted: boolean = false;
   loading: boolean = false;
   id: string | null | undefined;
+  idLoan: string | null | undefined;
   clients: Client[] = [];
   client: Client | undefined;
   clientSelected: Client | undefined;
@@ -33,7 +34,8 @@ export class DebtComponent implements OnInit {
 
   ngOnInit(): void {
     this.initdebtForm();
-    this.id = this.aRoute.snapshot.paramMap.get('id');
+    this.id = this.aRoute.snapshot.paramMap.get('idClient');
+    this.idLoan = this.aRoute.snapshot.paramMap.get('idLoan');
     this.getClients();
     this.shouldEdit()
   }
@@ -60,7 +62,7 @@ export class DebtComponent implements OnInit {
     if (this.id === null) {
       this.addLoan()
     } else {
-      //  this.updateLoan(this.id!)
+      this.updateLoan()
     }
   }
 
@@ -79,23 +81,18 @@ export class DebtComponent implements OnInit {
       this.clientService.getClients().subscribe(clientsFirebase => {
         this.loading = false;
         this.client = clientsFirebase.find(miembro => miembro.id == this.id)
-        console.log('shouldEdit this.client', this.client?.loan)
-        // this.debtForm?.setValue({
-        //   initialDate: this.client!.loan!.initialDate,
-        //   totalAmount: ['', Validators.required],
-        //   profit: ['', Validators.required],
-        //   cuoteType: ['', Validators.required],
-        //   cuoteQuantity: ['', Validators.required],
-        //   cuotePaid: ['', Validators.required],
-        //   cuoteValue: ['', Validators.required],
+        var loan = this.client?.loan!.find(loan => loan.id == this.idLoan)
 
-
-
-        //   firstName: this.client!.firstName,
-        //   lastName: this.client!.lastName,
-        //   mobile: this.client!.mobile,
-        //   address: this.client!.address,
-        // })
+        this.debtForm?.setValue({
+          clientId: loan!.id,
+          initialDate: loan!.initialDate,
+          totalAmount: loan!.totalAmount,
+          profit: loan!.profit,
+          cuoteType: loan!.cuoteType,
+          cuoteQuantity: loan!.cuoteQuantity,
+          cuotePaid: loan!.cuotePaid,
+          cuoteValue: loan!.cuoteValue,
+        })
       })
     }
   }
@@ -133,22 +130,26 @@ export class DebtComponent implements OnInit {
     }
   }
 
-  // updateDebt(id: string) {
-  //   const client: Client = {
-  //     firstName: this.debtForm?.value.firstName,
-  //     lastName: this.debtForm?.value.lastName,
-  //     mobile: this.debtForm?.value.mobile,
-  //     address: this.debtForm?.value.address,
-  //   }
+  updateLoan() {
+    this.loading = true;
+    this.clientSelected = this.getClientsArray.find(client => client.id == this.id)
+    let loanToUpdate = this.clientSelected!.loan!.find(loan => loan.id == this.idLoan)
 
-  //   this.loading = true;
+    loanToUpdate!.initialDate! = this.debtForm?.value.initialDate
+    loanToUpdate!.totalAmount! = this.debtForm?.value.totalAmount
+    loanToUpdate!.profit! = this.debtForm?.value.profit
+    loanToUpdate!.cuoteType! = this.debtForm?.value.cuoteType
+    loanToUpdate!.cuoteQuantity! = this.debtForm?.value.cuoteQuantity
+    loanToUpdate!.cuotePaid! = this.debtForm?.value.cuotePaid
+    loanToUpdate!.cuoteValue! = this.debtForm?.value.cuoteValue
 
-  //   this.clientService.updateClient(id, client).then(() => {
-  //     this.loading = false;
-  //     this.toastr.info('El empleado fue modificado con éxito', 'Empleado modificado', { positionClass: 'toast-bottom-right' })
-  //   })
-  //   this.router.navigate(['/debt-list'])
-  // }
+   this.debtService.updateDebt(this.id!, this.clientSelected!)
+    .then(() => {
+      this.loading = false;
+      this.toastr.info('El préstamo fue modificado con éxito', 'Préstamo modificado', { positionClass: 'toast-bottom-right' })
+      this.router.navigate(['/debt-list'])
+    })
+  }
 
 
   addLoanToExistingArray() {
@@ -165,17 +166,17 @@ export class DebtComponent implements OnInit {
       cuoteQuantity: this.debtForm?.value.cuoteQuantity,
       cuotePaid: this.debtForm?.value.cuotePaid,
       cuoteValue: this.debtForm?.value.cuoteValue,
-    }   
+    }
 
-    this.clientSelected?.loan!.push(newLoan!)   
+    this.clientSelected?.loan!.push(newLoan!)
 
     this.debtService.addLoanToExistingArray(this.debtForm?.value.clientId, this.clientSelected?.loan!)
-    .then(() => {
-      this.loading = false;
-      this.toastr.info('El préstamo fue registrado con éxito', 'Préstamo registrado', { positionClass: 'toast-bottom-right' })
-      this.router.navigate(['/debt-list'])
-    })
-    
+      .then(() => {
+        this.loading = false;
+        this.toastr.info('El préstamo fue registrado con éxito', 'Préstamo registrado', { positionClass: 'toast-bottom-right' })
+        this.router.navigate(['/debt-list'])
+      })
+
   }
 
 }

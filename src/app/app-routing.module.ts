@@ -56,7 +56,7 @@ const routes: Routes = [
   { path: 'add-client', component: ClientComponent },
   { path: 'edit-client/:id', component: ClientComponent },
   { path: 'add-debt', component: DebtComponent },
-  { path: 'edit-debt/:id', component: DebtComponent },
+  { path: 'edit-debt/:idClient/:idLoan', component: DebtComponent },
   { path: 'debt-list', component: DebtListComponent },
   // { path: '**', redirectTo: 'client-list', pathMatch: 'full' },
 

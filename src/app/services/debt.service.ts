@@ -11,8 +11,8 @@ export class DebtService {
   constructor(private firestore: Firestore) { }
 
   addLoan(id?: string, newloan?: Loan) {
-    const clientDocRef = doc(this.firestore, `clients/${id}`)
-    return setDoc(clientDocRef, newloan, { merge: true });
+    const loanDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(loanDocRef, newloan, { merge: true });
   }
 
   addLoanToExistingArray(id?: string, newLoan?: Loan[]) {
@@ -20,13 +20,21 @@ export class DebtService {
       loan: newLoan
     };
 
-    const clientDocRef = doc(this.firestore, `clients/${id}`)
-    return setDoc(clientDocRef, data, { merge: true });
+    const loanDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(loanDocRef, data, { merge: true });
   }
 
-  // updateClient(id: string, client: Client) {
-  //   const clientDocRef = doc(this.firestore, `clients/${id}`)
-  //   return setDoc(clientDocRef, client);
-  // }
+  updateDebt(id: string, client: Client) {
+    console.log('id',id)
+    console.log('client',client)
+
+    const loanDocRef = doc(this.firestore, `clients/${id}`)
+    return setDoc(loanDocRef, client);
+  }
+
+  deleteDebt(id: string, idLoan: string) {
+    const clientDocRef = doc(this.firestore, `clients/${id}`)
+    return deleteDoc(clientDocRef);
+  }
 
 }

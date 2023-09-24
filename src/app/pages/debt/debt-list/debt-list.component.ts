@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from '@app/interfaces/client';
 import { ClientService } from '@app/services/client.service';
+import { DebtService } from '@app/services/debt.service';
 
 @Component({
   selector: 'app-debt-list',
@@ -12,9 +13,10 @@ export class DebtListComponent implements OnInit {
   
   clients: Client[] = [];
 
-  constructor(private clientService: ClientService){
-
-  }
+  constructor(
+    private clientService: ClientService,
+    private debtService: DebtService
+    ){ }
 
   ngOnInit(): void {
     this.clientService.getClients().subscribe(clientsFirebase=>{
@@ -23,9 +25,8 @@ export class DebtListComponent implements OnInit {
     })
   }
 
-  async onClickDelete(client: Client){
-    const response = await this.clientService.deleteClient(client);
-    console.log('borrado',response)
+  async onClickDelete(idClient: string, idLoan: string){
+    const response = await this.debtService.deleteDebt(idClient,idLoan);
   }
 
 

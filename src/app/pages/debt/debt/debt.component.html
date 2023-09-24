@@ -13,13 +13,19 @@
                     <form [formGroup]="debtForm!" (ngSubmit)="onSubmit()" class="mt-4">
 
                         <div class="form-group row mt-2">
-                            <label for="clientId" class="col-sm-2 col-form-label">Seleccionar Cliente: </label>
-                            <div class="col-sm-10">
+                            <label for="clientId" class="col-sm-2 col-form-label" *ngIf="!this.id">Seleccionar Cliente:
+                            </label>
+                            <div class="col-sm-10" *ngIf="!this.id">
                                 <select class="form-select" aria-label="Default select example" id="clientId"
-                                    aria-describedby="clientId" formControlName="clientId">
-                                    <option *ngFor="let clientArray of getClientsArray" value="{{clientArray.id}}">{{clientArray.firstName + ' ' + clientArray.lastName}}</option>
+                                    formControlName="clientId">
+                                    <option *ngFor="let clientArray of getClientsArray" value="{{clientArray.id}}">
+                                        {{clientArray.firstName + ' ' + clientArray.lastName}}</option>
                                 </select>
                             </div>
+
+                            <ng-template [ngIf]="this.id">
+                                <h5>{{this.client?.firstName}} {{this.client?.lastName}}</h5>
+                            </ng-template>
                         </div>
 
 
@@ -35,7 +41,7 @@
                             <label for="totalAmount" class="col-sm-2 col-form-label">Monto: </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="totalAmount" aria-describedby="totalAmount"
-                                    placeholder="Monto" formControlName="totalAmount" >
+                                    placeholder="Monto" formControlName="totalAmount">
                             </div>
                         </div>
 
@@ -64,8 +70,9 @@
                         <div class="form-group row mt-2">
                             <label for="cuoteQuantity" class="col-sm-2 col-form-label">Cantidad de cuotas: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="cuoteQuantity" aria-describedby="cuoteQuantity"
-                                    placeholder="Cantidad de cuotas" formControlName="cuoteQuantity">
+                                <input type="text" class="form-control" id="cuoteQuantity"
+                                    aria-describedby="cuoteQuantity" placeholder="Cantidad de cuotas"
+                                    formControlName="cuoteQuantity">
                             </div>
                         </div>
 
