@@ -25,9 +25,7 @@ export class DebtListComponent implements OnInit {
     })
   }
 
-  async onClickDelete(idClient: string, idLoan: string){
-    const response = await this.debtService.deleteDebt(idClient,idLoan);
+  async onClickDelete(idClient: string, loan: any){
+    const response = await this.debtService.deleteDebt(idClient,loan);
   }
-
-
 }

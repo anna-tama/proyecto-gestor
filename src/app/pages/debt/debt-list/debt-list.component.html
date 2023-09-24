@@ -80,7 +80,7 @@
                                         *ngFor="let subItem of client.loan">
                                         <i class="fas fa-edit fa-lg text-info mr-2 mb-3"
                                             [routerLink]="['/edit-debt/',client.id,subItem.id]"></i>
-                                        <i (click)="onClickDelete(client.id!,subItem.id!)"
+                                        <i (click)="onClickDelete(client.id!,subItem)"
                                             class="fas fa-trash-alt fa-lg text-danger"></i>
                                     </div>
                                 </div>
